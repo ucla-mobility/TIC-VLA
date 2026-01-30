@@ -631,31 +631,55 @@
           </figure>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div style="height:1.5em;"></div>
-
-      <!-- TIC-VLA Framework -->
-      <h2 class="title is-3" style="text-align:center; margin-bottom: 2rem; font-size: 2.3em;">TIC-VLA Framework</h2>
-
-      <!-- Framework Overview -->
+  <section class="section" id="dynanav" style="padding-top:2rem;">
+    <div class="container" style="max-width: 85%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:center; margin-bottom:2rem; font-size: 2.3em;">TIC-VLA Framework</h2>
+  
       <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
         <p style="text-align:justify; color:rgb(31, 30, 30);">
           The architecture adopts a decoupled dual-system design with a <b>fast action expert</b> and a <b>slow reasoning VLM</b>. A <b>shared vision encoder</b> provides real-time observations to the policy and time-lagged observations to the VLM, where the delay arises naturally from slow inference. The <b>delayed semantic-control interface</b> (including delayed VLM KV cache features and latency metadata) is explicitly recorded. The <b>Transformer-based action expert</b> takes as input the current observation, robot state, and delayed semantic-control interface data to generate actions from learnable action queries via cross-attention. Multi-stage training combines imitation learning with delayed inference and reinforcement learning to ensure robustness to real-world, time-sensitive conditions.
-        </p>
-      </div>
-      
-      <div class="columns is-centered has-text-centered" style="margin-top:2em;">
-        <div class="column is-eight-fifths">
-          <figure class="table-figure">
-            <img class="figure-image" src="website/img/overview.png" alt="Figure 2. Illustration of Embodied Prior Learning (EPL)." style="max-width: 98%; margin: 0 auto; margin-bottom:1rem;" />
-            <figcaption class="figure-caption" style="font-size: 1.1em;">
-            </figcaption>
-          </figure>
+        </p>      
+  
+        <!--  Figure -->
+        <div class="columns is-centered has-text-centered" style="margin-top:2em;">
+          <div class="column is-eight-fifths">
+            <figure class="table-figure">
+              <img class="figure-image" src="website/img/overview.png" alt="Figure 2. Illustration of Embodied Prior Learning (EPL)." style="max-width: 98%; margin: 0 auto; margin-bottom:1rem;" />
+            </figure>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- DynaNav -->
+<section class="section" id="dynanav" style="padding-top:2rem;">
+  <div class="container" style="max-width: 85%; margin: 0 auto;">
+    <h2 class="title is-3" style="text-align:center; margin-bottom:2rem; font-size: 2.3em;">DynaNav Benchmark</h2>
+
+    <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+      <p style="text-align:justify; color:rgb(31, 30, 30);">
+        <b>DynaNav</b> is a physics-accurate, photo-realistic benchmark for language-guided robot navigation in dynamic, human-centric environments.
+        It features <b>85 episodes</b> across <b>Hospital, Office, Warehouse, and Outdoor</b> scenes, with controlled variation in
+        <b>crowd density</b>, <b>navigation distance</b>, and <b>robot platform</b> (Nova Carter or Spot).
+        Built in <b>Isaac Sim</b> with realistic human motion and physics-based control, DynaNav evaluates robustness under dense human-robot interactions under physical constraints. 
+      </p>      
+
+      <!--  Figure -->
+      <div class="columns is-centered has-text-centered" style="margin-top:2em;">
+        <div class="column is-eight-fifths">
+          <figure class="table-figure">
+            <img class="figure-image" src="website/img/benchmark.png"
+                 alt="DynaNav Overview" style="max-width: 95%; margin: 0 auto; margin-bottom:1rem;" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
   
   <!-- Results -->
