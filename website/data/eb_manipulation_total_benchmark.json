@@ -1,0 +1,264 @@
+[
+  {
+    "model": "GPT-4o",
+    "eb_mani_avg": 28.9,
+    "eb_mani_base": 39.6,
+    "eb_mani_common": 29.2,
+    "eb_mani_complex": 29.2,
+    "eb_mani_visual": 19.4,
+    "eb_mani_spatial": 25.0
+  },
+  {
+    "model": "GPT-4o-mini",
+    "eb_mani_avg": 4.8,
+    "eb_mani_base": 4.2,
+    "eb_mani_common": 6.3,
+    "eb_mani_complex": 2.1,
+    "eb_mani_visual": 0.0,
+    "eb_mani_spatial": 10.4
+  },
+  {
+    "model": "Claude-3.7-Sonnet",
+    "eb_mani_avg": 28.5,
+    "eb_mani_base": 31.3,
+    "eb_mani_common": 20.8,
+    "eb_mani_complex": 43.8,
+    "eb_mani_visual": 25.0,
+    "eb_mani_spatial": 20.8
+  },
+  {
+    "model": "Claude-3.5-Sonnet",
+    "eb_mani_avg": 25.4,
+    "eb_mani_base": 37.5,
+    "eb_mani_common": 16.7,
+    "eb_mani_complex": 29.2,
+    "eb_mani_visual": 19.4,
+    "eb_mani_spatial": 22.9
+  },
+  {
+    "model": "Gemini-1.5-Pro",
+    "eb_mani_avg": 21.1,
+    "eb_mani_base": 14.6,
+    "eb_mani_common": 14.6,
+    "eb_mani_complex": 22.9,
+    "eb_mani_visual": 16.7,
+    "eb_mani_spatial": 35.4
+  },
+  {
+    "model": "Gemini-2.0-flash",
+    "eb_mani_avg": 16.7,
+    "eb_mani_base": 14.6,
+    "eb_mani_common": 8.3,
+    "eb_mani_complex": 14.6,
+    "eb_mani_visual": 13.9,
+    "eb_mani_spatial": 31.3
+  },
+  {
+    "model": "Gemini-1.5-flash",
+    "eb_mani_avg": 9.6,
+    "eb_mani_base": 14.6,
+    "eb_mani_common": 10.4,
+    "eb_mani_complex": 4.2,
+    "eb_mani_visual": 8.3,
+    "eb_mani_spatial": 10.4
+  },
+  {
+    "model": "Qwen-VL-Max",
+    "eb_mani_avg": 18.0,
+    "eb_mani_base": 25.0,
+    "eb_mani_common": 10.4,
+    "eb_mani_complex": 18.8,
+    "eb_mani_visual": 2.8,
+    "eb_mani_spatial": 29.2
+  },
+  {
+    "model": "Llama-3.2-90B-Vision-Ins",
+    "eb_mani_avg": 14.9,
+    "eb_mani_base": 10.4,
+    "eb_mani_common": 12.5,
+    "eb_mani_complex": 16.7,
+    "eb_mani_visual": 10.4,
+    "eb_mani_spatial": 20.8
+  },
+  {
+    "model": "Llama-3.2-11B-Vision-Ins",
+    "eb_mani_avg": 0.9,
+    "eb_mani_base": 0.0,
+    "eb_mani_common": 0.0,
+    "eb_mani_complex": 2.1,
+    "eb_mani_visual": 0.0,
+    "eb_mani_spatial": 2.1
+  },
+  {
+    "model": "InternVL2_5-78B",
+    "eb_mani_avg": 18.0,
+    "eb_mani_base": 16.7,
+    "eb_mani_common": 16.7,
+    "eb_mani_complex": 14.6,
+    "eb_mani_visual": 22.2,
+    "eb_mani_spatial": 20.8
+  },
+  {
+    "model": "InternVL2_5-38B",
+    "eb_mani_avg": 15.8,
+    "eb_mani_base": 22.9,
+    "eb_mani_common": 16.7,
+    "eb_mani_complex": 8.3,
+    "eb_mani_visual": 13.9,
+    "eb_mani_spatial": 16.7
+  },
+  {
+    "model": "InternVL2_5-8B",
+    "eb_mani_avg": 7.0,
+    "eb_mani_base": 8.3,
+    "eb_mani_common": 2.1,
+    "eb_mani_complex": 6.3,
+    "eb_mani_visual": 8.3,
+    "eb_mani_spatial": 10.4
+  },
+  {
+    "model": "InternVL3-78B",
+    "eb_mani_avg": 26.3,
+    "eb_mani_base": 29.2,
+    "eb_mani_common": 22.9,
+    "eb_mani_complex": 22.9,
+    "eb_mani_visual": 25.0,
+    "eb_mani_spatial": 31.3
+  },
+  {
+    "model": "InternVL3-38B",
+    "eb_mani_avg": 22.6,
+    "eb_mani_base": 20.8,
+    "eb_mani_common": 14.6,
+    "eb_mani_complex": 20.8,
+    "eb_mani_visual": 19.4,
+    "eb_mani_spatial": 37.5
+  },
+  {
+    "model": "InternVL3-8B",
+    "eb_mani_avg": 11.5,
+    "eb_mani_base": 10.4,
+    "eb_mani_common": 10.4,
+    "eb_mani_complex": 12.5,
+    "eb_mani_visual": 13.9,
+    "eb_mani_spatial": 10.4
+  },
+  {
+    "model": "Qwen2-VL-7B-Ins",
+    "eb_mani_avg": 0.1,
+    "eb_mani_base": 0.0,
+    "eb_mani_common": 0.0,
+    "eb_mani_complex": 0.0,
+    "eb_mani_visual": 0.0,
+    "eb_mani_spatial": 0.0
+  },
+  {
+    "model": "Qwen2-VL-72B-Ins",
+    "eb_mani_avg": 13.6,
+    "eb_mani_base": 18.8,
+    "eb_mani_common": 20.8,
+    "eb_mani_complex": 4.2,
+    "eb_mani_visual": 8.3,
+    "eb_mani_spatial": 14.6
+  },
+  {
+    "model": "Qwen2.5-VL-72B-Ins",
+    "eb_mani_avg": 16.2,
+    "eb_mani_base": 12.5,
+    "eb_mani_common": 12.5,
+    "eb_mani_complex": 16.7,
+    "eb_mani_visual": 22.2,
+    "eb_mani_spatial": 18.8
+  },
+  {
+    "model": "Qwen2.5-VL-7B-Ins",
+    "eb_mani_avg": 9.6,
+    "eb_mani_base": 8.3,
+    "eb_mani_common": 8.3,
+    "eb_mani_complex": 8.3,
+    "eb_mani_visual": 5.6,
+    "eb_mani_spatial": 16.7
+  },
+  {
+    "model": "Ovis2-34B",
+    "eb_mani_avg": 26.8,
+    "eb_mani_base": 31.3,
+    "eb_mani_common": 25.0,
+    "eb_mani_complex": 18.8,
+    "eb_mani_visual": 27.8,
+    "eb_mani_long": 31.3
+  },
+  {
+    "model": "Ovis2-16B",
+    "eb_mani_avg": 11.3,
+    "eb_mani_base": 10.4,
+    "eb_mani_common": 4.2,
+    "eb_mani_complex": 16.7,
+    "eb_mani_visual": 16.7,
+    "eb_mani_long": 8.3
+  },
+  {
+    "model": "gemma-3-27b-it",
+    "eb_mani_avg": 17.5,
+    "eb_mani_base": 25.0,
+    "eb_mani_common": 16.7,
+    "eb_mani_complex": 16.7,
+    "eb_mani_visual": 8.3,
+    "eb_mani_long": 20.8
+  },
+  {
+    "model": "gemma-3-12b-it",
+    "eb_mani_avg": 20.6,
+    "eb_mani_base": 20.8,
+    "eb_mani_common": 22.9,
+    "eb_mani_complex": 20.8,
+    "eb_mani_visual": 19.4,
+    "eb_mani_long": 18.8
+  },
+  {
+    "model": "RL4VLM (3B)",
+    "eb_mani_avg": 21.9,
+    "eb_mani_base": 33.3,
+    "eb_mani_common": 8.3,
+    "eb_mani_complex": 29.2,
+    "eb_mani_visual": 30.6,
+    "eb_mani_spatial": 8.3
+  },
+  {
+    "model": "VAGEN (3B)",
+    "eb_mani_avg": 22.9,
+    "eb_mani_base": 35.4,
+    "eb_mani_common": 8.3,
+    "eb_mani_complex": 31.3,
+    "eb_mani_visual": 29.2,
+    "eb_mani_spatial": 10.4
+  },
+  {
+    "model": "Robot-R1 (7B)",
+    "eb_mani_avg": 11.7,
+    "eb_mani_base": 12.5,
+    "eb_mani_common": 8.3,
+    "eb_mani_complex": 6.3,
+    "eb_mani_visual": 16.7,
+    "eb_mani_spatial": 14.6
+  },
+  {
+    "model": "ERA-3B (EPL-only)",
+    "eb_mani_avg": 40.0,
+    "eb_mani_base": 45.8,
+    "eb_mani_common": 37.5,
+    "eb_mani_complex": 41.7,
+    "eb_mani_visual": 47.9,
+    "eb_mani_spatial": 27.1
+  },
+  {
+    "model": "ERA-3B (EPL+RL)",
+    "eb_mani_avg": 48.3,
+    "eb_mani_base": 56.3,
+    "eb_mani_common": 47.9,
+    "eb_mani_complex": 47.9,
+    "eb_mani_visual": 50.0,
+    "eb_mani_spatial": 39.6
+  }
+]
+
