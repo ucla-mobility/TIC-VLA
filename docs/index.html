@@ -495,7 +495,8 @@
 
             <!-- SUBTITLE -->
             <h2 class="title is-1 publication-title is-bold" style="margin-top:0.5em; margin-right: 10px; margin-left: 10px;">
-              A Think-in-Control Vision-Language-Action Model for Robot Navigation in Dynamic Environments
+              A Think-in-Control Vision-Language-Action Model 
+              for Robot Navigation in Dynamic Environments
             </h2>
 
             <div class="is-size-5 publication-authors">
@@ -548,7 +549,7 @@
                 </a>&nbsp;&nbsp;
               </span>
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank">
+                <a href="https://github.com/ucla-mobility/TIC-VLA" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank">
                   <span class="icon">
                     <i class="fab fa-github"></i>
                   </span>
@@ -625,7 +626,7 @@
           Robots in dynamic, human-centric environments must follow language instructions while maintaining real-time reactive control. Vision-language-action (VLA) models offer a promising framework, but they assume temporally aligned reasoning and control, despite semantic inference being inherently delayed relative to real-time action.
         </p>
         <p style="text-align:justify; color:rgb(31, 30, 30);">
-          We introduce <b>Think-in-Control (TIC)-VLA</b>, a latency-aware framework that explicitly models delayed semantic reasoning during action generation. TIC-VLA defines a <b>delayed semantic-control interface</b> that conditions action generation on delayed vision-language semantic states and explicit latency metadata, in addition to current observations. We further propose a <b>latency-consistent training pipeline</b> that injects reasoning inference delays during imitation learning and online reinforcement learning, aligning training with asynchronous deployment. To support realistic evaluation, we present <b>DynaNav</b>, a physics-accurate, photo-realistic simulation suite for language-guided navigation in dynamic environments.
+          We introduce <b>Think-in-Control (TIC)-VLA</b>, a latency-aware framework that explicitly models delayed semantic reasoning during action generation. TIC-VLA defines a <b>delayed semantic-control interface</b> that conditions action generation on delayed vision-language semantic states and explicit latency metadata, in addition to current observations,  enabling policies to compensate for asynchronous reasoning. We further propose a <b>latency-consistent training pipeline</b> that injects reasoning inference delays during imitation learning and online reinforcement learning, aligning training with asynchronous deployment. To support realistic evaluation, we present <b>DynaNav</b>, a physics-accurate, photo-realistic simulation suite for language-guided navigation in dynamic environments.
         </p>
         <p style="text-align:justify; color:rgb(31, 30, 30);">
           Extensive experiments in simulation and on a real robot show that TIC-VLA consistently outperforms prior VLA models while maintaining robust real-time control under multi-second reasoning latency.
