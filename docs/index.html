@@ -136,6 +136,13 @@
           line-height: 1.6;
           margin: 0;
           padding: 0;
+          max-width: none;
+        }
+        
+        /* Content wrapper: constrain width for sections, hero stays full width */
+        .main-content {
+          max-width: 1600px;
+          margin: 0 auto;
         }
         
         .collapse-content {
@@ -146,7 +153,7 @@
           display: block;
         }
         
-        /* Hero Section */
+        /* Hero Section - full viewport width */
         .hero {
           background: linear-gradient(135deg, #2774AE 0%, #4a9bd5 25%, #1e5a8a 50%, #4a9bd5 75%, #2774AE 100%);
           background-size: 300% 300%;
@@ -607,6 +614,7 @@
   </section> -->
 
 
+  <div class="main-content">
   <section class="section" id="overview" style="padding-top:2rem;">
     <div class="container" style="max-width: 85%; margin: 0 auto;">
       <h2 class="title is-3" style="text-align:center; margin-bottom:2rem; font-size: 2.3em;">Abstract</h2>
@@ -812,9 +820,10 @@
         </div>
       </div>
 
-      <div style="height:1em;"></div>
+      <div style="height:1em;">      </div>
     </div>
   </section>
+  </div>
 <!-- 
   BibTeX Section
   <section class="section" id="BibTeX" style="padding-top:2rem;">
