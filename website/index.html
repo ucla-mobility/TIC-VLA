@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TIC-VLA: A Think-in-Control Vision-Language-Action Model for Robot Navigation in Dynamic Environments</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/logo.png" type="image/png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="css/bulma.min.css">
+    <link rel="stylesheet" href="css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="css/fontawesome.all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./javascript/bulma-carousel.min.js"></script>
+    <script src="./javascript/bulma-slider.min.js"></script>
+    <script src="./javascript/explorer-index.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap4.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+    <script defer src="javascript/fontawesome.all.min.js"></script>
+    <!-- <script src="javascript/peity-vanilla.js"></script> -->
+
+
+    <!-- below we load some js scripts -->
+    <script src="javascript/benchmark_table.js" type="module"></script>
+    <script src="javascript/benchmark_table_low_level.js" type="module"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7GJ4FYMY9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C7GJ4FYMY9');
+    </script>
+
+    <!-- MathJax script -->
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/javascript">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+      </script>
+
+    <script>
+      // Ensure all videos autoplay and loop continuously
+      document.addEventListener('DOMContentLoaded', function() {
+        const videos = document.querySelectorAll('video[autoplay]');
+        
+        videos.forEach(video => {
+          // Ensure loop is set
+          video.loop = true;
+          
+          // Try to play the video
+          const playPromise = video.play();
+          
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                // Video is playing
+                console.log('Video autoplay started');
+              })
+              .catch(error => {
+                // Autoplay was prevented
+                console.log('Autoplay prevented, user interaction required');
+                // Add click handler to start playback
+                video.addEventListener('click', function() {
+                  video.play();
+                }, { once: true });
+              });
+          }
+          
+          // Ensure video restarts when it ends (for browsers that don't support loop)
+          video.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play().catch(e => console.log('Replay prevented:', e));
+          });
+        });
+      });
+    </script>
+
+    <noscript>
+        <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101339888ns.gif" /></p>
+    </noscript>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var toggles = document.querySelectorAll('.toggle-section');
+        toggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+            var content = document.getElementById(toggle.getAttribute('aria-controls'));
+            var toggleIcon = toggle.children[1].children[0];
+            content.classList.toggle('is-active');
+            if (content.classList.contains('is-active')) {
+                toggleIcon.style.transition = 'transform 0.3s ease';
+                toggleIcon.style.transform = 'rotate(180deg)';
+            } else {
+                toggleIcon.style.transition = 'transform 0.3s ease';
+                toggleIcon.style.transform = 'rotate(0deg)';
+            }
+            });
+        });
+        });
+      </script>
+
+    <style>
+        /* Global Styles */
+        * {
+          box-sizing: border-box;
+        }
+        
+        body {
+          background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #f5f7fa 100%);
+          font-family: 'Google Sans', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          color: #2c3e50;
+          line-height: 1.6;
+          margin: 0;
+          padding: 0;
+        }
+        
+        .collapse-content {
+          display: none;
+          margin-top: 10px;
+        }
+        .collapse-content.is-active {
+          display: block;
+        }
+        
+        /* Hero Section */
+        .hero {
+          background: linear-gradient(135deg, #2774AE 0%, #4a9bd5 25%, #1e5a8a 50%, #4a9bd5 75%, #2774AE 100%);
+          background-size: 300% 300%;
+          animation: gradientShift 15s ease-in-out infinite;
+          color: white;
+          padding: 4rem 0;
+          box-shadow: 0 10px 40px rgba(39, 116, 174, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+          pointer-events: none;
+        }
+        
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
+        .hero-body {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .publication-title {
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+          letter-spacing: -0.5px;
+        }
+        
+        .publication-authors a {
+          color: rgba(255, 255, 255, 0.95);
+          text-decoration: none;
+          transition: all 0.3s ease;
+          border-bottom: 1px solid transparent;
+        }
+        
+        .publication-authors a:hover {
+          color: #fff;
+          border-bottom-color: rgba(255, 255, 255, 0.6);
+          transform: translateY(-1px);
+        }
+        
+        /* Buttons */
+        .button.is-dark {
+          background: rgba(255, 255, 255, 0.2);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          color: white;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+          font-weight: 500;
+          padding: 0.75em 1.5em;
+        }
+        
+        .button.is-dark:hover {
+          background: rgba(255, 255, 255, 0.3);
+          border-color: rgba(255, 255, 255, 0.5);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Sections */
+        .section {
+          background: white;
+          border-radius: 24px;
+          margin: 3rem auto;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+          padding: 3.5rem 2.5rem;
+          transition: box-shadow 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        /* Smooth transition from hero to first section */
+        #overview {
+          margin-top: -1.5rem;
+          border-radius: 24px 24px 24px 24px;
+          position: relative;
+          z-index: 1;
+        }
+        
+        #overview::before {
+          content: '';
+          position: absolute;
+          top: -3rem;
+          left: 0;
+          right: 0;
+          height: 3rem;
+          background: linear-gradient(to bottom, 
+            rgba(39, 116, 174, 0.08) 0%, 
+            rgba(39, 116, 174, 0.04) 50%, 
+            transparent 100%);
+          pointer-events: none;
+          z-index: -1;
+        }
+        
+        /* Add spacing after hero */
+        .hero {
+          margin-bottom: 0;
+          padding-bottom: 4rem;
+        }
+        
+        .section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #2774AE 0%, #1e5a8a 100%);
+        }
+        
+        .section:hover {
+          box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Typography */
+        h2.title, h3.title {
+          color: #2c3e50;
+          font-weight: 700;
+          letter-spacing: -0.5px;
+          position: relative;
+          padding-bottom: 1.5rem;
+          margin-bottom: 2rem;
+        }
+        
+        h2.title::after, h3.title::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 80px;
+          height: 4px;
+          background: linear-gradient(90deg, #2774AE 0%, #1e5a8a 100%);
+          border-radius: 2px;
+        }
+        
+        h3.title.is-4 {
+          font-size: 1.75rem;
+          margin-top: 2rem;
+        }
+        
+        /* Content Styling */
+        .content p {
+          color: #4a5568;
+          font-size: 1.1em;
+          line-height: 1.8;
+        }
+        
+        .content b {
+          color: #2774AE;
+          font-weight: 600;
+        }
+        
+        /* Video Containers - Only visual styling, no layout changes */
+        
+        figure {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 16px;
+          overflow: hidden;
+          background: #f8f9fa;
+          padding: 4px;
+        }
+        
+        /* Hover effects only for video figures, not for table-figure */
+        figure:not(.table-figure):hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(39, 116, 174, 0.25);
+        }
+        
+        video {
+          border-radius: 12px;
+          transition: all 0.3s ease;
+        }
+        
+        figure:not(.table-figure):hover video {
+          filter: brightness(1.05);
+        }
+        
+        /* Figure Image - no hover effects */
+        .figure-image {
+          border-radius: 16px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .table-figure .figure-image {
+          box-shadow: none !important;
+          border-radius: 0 !important;
+        }
+        
+        
+        /* Table figure (overview image) - no hover effects at all */
+        .table-figure {
+          background: transparent;
+          padding: 0;
+          border-radius: 0;
+          box-shadow: none;
+        }
+        .table-figure:hover {
+          transform: none;
+          box-shadow: none;
+        }   
+        
+        .figure-caption {
+          color: #6b7280;
+          font-style: italic;
+          margin-top: 1rem;
+        }
+        
+        /* BibTeX Section */
+        #BibTeX {
+          background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        #BibTeX pre {
+          background: #2c3e50;
+          color: #e2e8f0;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+          overflow-x: auto;
+          font-family: 'Courier New', monospace;
+          line-height: 1.6;
+          border-left: 4px solid #2774AE;
+        }
+        
+        /* Footer */
+        .footer {
+          background: linear-gradient(135deg, #2c3e50 0%, #1a202c 100%);
+          color: #e2e8f0;
+          border-radius: 24px 24px 0 0;
+          margin-top: 4rem;
+          padding: 2.5rem 0;
+          box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer a {
+          color: #5b9bd5;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        
+        .footer a:hover {
+          color: #2774AE;
+          text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .section {
+            padding: 2rem 1.5rem;
+            margin: 2rem 1rem;
+            border-radius: 16px;
+          }
+          
+          h2.title, h3.title {
+            font-size: 1.8rem;
+          }
+          
+          .hero {
+            padding: 2.5rem 0;
+          }
+        }
+        
+        /* Smooth Scrolling */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Loading Animation */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .section {
+          animation: fadeIn 0.6s ease-out;
+        }
+        
+        /* Author Links Enhancement */
+        .author-block {
+          margin: 0.25rem 0;
+        }
+        
+        /* Container Improvements */
+        .container {
+          position: relative;
+        }
+        
+        /* Video Section Headers */
+        #results h3.title.is-4 {
+          background: linear-gradient(135deg, #2774AE 0%, #1e5a8a 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-weight: 700;
+        }
+        
+        #results h3.title.is-4::after {
+          width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+  <!-- Single-line Title with Bulma's .title.is-1 is-bold (centered heading) -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <!-- MAIN TITLE (logo + "TIC-VLA") -->
+            <h1 class="title is-1 publication-title is-bold" style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+              <img src="img/logo.png"
+                   alt="logo"
+                   style="vertical-align: middle; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));"
+                   width="90"
+                   height="130" />
+              <span class="tic-vla" style="vertical-align: middle; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">TIC-VLA</span>
+            </h1> 
+
+            <!-- SUBTITLE -->
+            <h2 class="title is-1 publication-title is-bold" style="margin-top:0.5em; margin-right: 10px; margin-left: 10px;">
+              A Think-in-Control Vision-Language-Action Model for Robot Navigation in Dynamic Environments
+            </h2>
+
+            <div class="is-size-5 publication-authors">
+              <div class="author-line">
+                <span class="author-block">
+                  <a href="https://mczhi.github.io/" target="_blank">Zhiyu Huang</a><sup>&dagger;</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://handsomeyun.github.io/" target="_blank">Yun Zhang</a><sup>&dagger;</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/johnsonliu367/" target="_blank">Johnson Liu</a>,
+                </span>
+                <span class="author-block">
+                  <a href="https://rruisong.github.io/" target="_blank">Rui Song</a>,
+                </span>
+                <span class="author-block">
+                  <a href="https://chentangmark.github.io/" target="_blank">Chen Tang</a>,
+                </span>
+                <span class="author-block">
+                  <a href="https://samueli.ucla.edu/people/jiaqi-ma/" target="_blank">Jiaqi Ma</a>
+                </span>
+              </div>
+
+            
+
+            <div class="is-size-5 publication-authors" style="margin-top:1em;">
+              <span class="author-block">University of California, Los Angeles (UCLA)</span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>&dagger;</sup>Equal contribution</span>
+            </div>
+
+            <!-- Links -->
+            <div class="column has-text-centered" style="margin-top:1.5em;">
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>&nbsp;&nbsp;
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>DynaNav</span>
+                </a>&nbsp;&nbsp;
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>TIC-VLA</span>
+                </a>&nbsp;&nbsp;
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-database"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser Video -->
+  <!-- <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body" style="padding-top:1rem;">
+        <video id="teaser" autoplay muted loop playsinline controls width="100%">
+          <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/videos/eai-0-overview.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- Single-Paragraph Abstract Section -->
+  <!-- <section class="section" id="abstract">
+    <div class="container" style="max-width: 85%; font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+      <h2 class="title is-3">Introduction</h2>
+      <div class="content has-text-justified">
+            <p style="text-align:justify; color:rgb(31, 30, 30);">
+              Leveraging Multi-modal Large Language Models (MLLMs) to create <b>vision-driven embodied agents</b>
+              offers a promising avenue for tackling real-world tasks. While language-centric embodied agents have
+              garnered substantial attention, MLLM-based embodied agents remain underexplored due to the lack of
+              comprehensive evaluation frameworks. To bridge this gap, we introduce <b>EmbodiedBench</b>, an
+              extensive benchmark designed to evaluate vision-driven embodied agents. EmbodiedBench features:
+              (1) <b>a diverse set of 1,128 testing tasks across four environments</b>, ranging from high-level semantic
+              tasks (e.g., household) to low-level tasks involving atomic actions (e.g., navigation and manipulation);
+              and (2) <b>six meticulously curated subsets evaluating essential agent capabilities</b> like common sense
+              reasoning, complex instruction following, spatial awareness, visual perception, and long-term planning.
+              Through extensive experiments, we evaluate 13 leading proprietary and open-source MLLMs within
+              EmbodiedBench. Our findings reveal that: MLLMs excel at high-level tasks but struggle with low-level
+              manipulation, with the best model, GPT-4o, scoring only on average. EmbodiedBench provides a
+              standardized, multifaceted evaluation platform that not only highlights existing challenges
+              but also offers valuable insights for advancing MLLM-based embodied agents.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+
+  <section class="section" id="overview" style="padding-top:2rem;">
+    <div class="container" style="max-width: 85%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:center; margin-bottom:2rem; font-size: 2.3em;">Abstract</h2>
+
+      <!-- Overview -->
+      <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+        <p style="text-align:justify; color:rgb(31, 30, 30);">
+          Robots in dynamic, human-centric environments must follow language instructions while maintaining real-time reactive control. Vision-language-action (VLA) models offer a promising framework, but they assume temporally aligned reasoning and control, despite semantic inference being inherently delayed relative to real-time action.
+        </p>
+        <p style="text-align:justify; color:rgb(31, 30, 30);">
+          We introduce <b>Think-in-Control (TIC)-VLA</b>, a latency-aware framework that explicitly models delayed semantic reasoning during action generation. TIC-VLA defines a <b>delayed semantic-control interface</b> that conditions action generation on delayed vision-language semantic states and explicit latency metadata, in addition to current observations. We further propose a <b>latency-consistent training pipeline</b> that injects reasoning inference delays during imitation learning and online reinforcement learning, aligning training with asynchronous deployment. To support realistic evaluation, we present <b>DynaNav</b>, a physics-accurate, photo-realistic simulation suite for language-guided navigation in dynamic environments.
+        </p>
+        <p style="text-align:justify; color:rgb(31, 30, 30);">
+          Extensive experiments in simulation and on a real robot show that TIC-VLA consistently outperforms prior VLA models while maintaining robust real-time control under multi-second reasoning latency.
+        </p>
+      </div>
+
+      <div class="columns is-centered has-text-centered" style="margin-top:2em;">
+        <div class="column is-eight-fifths">
+          <figure class="table-figure">
+            <img class="figure-image" src="img/overview.png"
+                 alt="DynaNav Overview" style="max-width: 85%; margin: 0 auto; margin-bottom:1rem;" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="dynanav" style="padding-top:2rem;">
+    <div class="container" style="max-width: 85%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:center; margin-bottom:2rem; font-size: 2.3em;">TIC-VLA Framework</h2>
+  
+      <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+        <p style="text-align:justify; color:rgb(31, 30, 30);">
+          The architecture adopts a decoupled dual-system design with a <b>fast action expert</b> and a <b>slow reasoning VLM</b>. A <b>shared vision encoder</b> provides real-time observations to the policy and time-lagged observations to the VLM, where the delay arises naturally from slow inference. The <b>delayed semantic-control interface</b> (including delayed VLM KV cache features and latency metadata) is explicitly recorded. The <b>Transformer-based action expert</b> takes as input the current observation, robot state, and delayed semantic-control interface data to generate actions from learnable action queries via cross-attention. Multi-stage training combines imitation learning with delayed inference and reinforcement learning to ensure robustness to real-world, time-sensitive conditions.
+        </p>      
+  
+        <!--  Figure -->
+        <div class="columns is-centered has-text-centered" style="margin-top:2em;">
+          <div class="column is-eight-fifths">
+            <figure class="table-figure">
+              <img class="figure-image" src="img/framework.png">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DynaNav -->
+<section class="section" id="dynanav" style="padding-top:2rem;">
+  <div class="container" style="max-width: 85%; margin: 0 auto;">
+    <h2 class="title is-3" style="text-align:center; margin-bottom:2rem; font-size: 2.3em;">DynaNav Benchmark</h2>
+
+    <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+      <p style="text-align:justify; color:rgb(31, 30, 30);">
+        <b>DynaNav</b> is a physics-accurate, photo-realistic benchmark for language-guided robot navigation in dynamic, human-centric environments.
+        It features <b>85 episodes</b> across <b>Hospital, Office, Warehouse, and Outdoor</b> scenes, with controlled variation in
+        <b>crowd density</b>, <b>navigation distance</b>, and <b>robot platform</b> (Nova Carter or Spot).
+        Built in <b>Isaac Sim</b> with realistic human motion and physics-based control, DynaNav evaluates robustness under dense human-robot interactions under physical constraints. 
+      </p>      
+
+      <!--  Figure -->
+      <div class="columns is-centered has-text-centered" style="margin-top:2em;">
+        <div class="column is-eight-fifths">
+          <figure class="table-figure">
+            <img class="figure-image" src="img/benchmark.png"
+                 alt="DynaNav Overview" style="max-width: 95%; margin: 0 auto; margin-bottom:1rem;" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+  <!-- Results -->
+  <section class="section" id="results" style="padding-top:3rem;">
+    <div class="container" style="max-width: 95%; font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
+      <h2 class="title is-3" style="text-align:center; margin-bottom: 3rem; font-size: 2.3em;">Results</h2>
+
+      <!-- Simulation Videos -->
+      <h3 class="title is-4" style="text-align:center; margin-bottom: 2.5rem; margin-top: 1rem;">Simulation-DynaNav</h3>
+      <div class="columns is-multiline" style="max-width: 85%; margin: 0 auto;">
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/hospital1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/hospital2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/office1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/office2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/outdoor1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/outdoor2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/warehouse1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-6">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/sim/warehouse2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <div style="height:4em;"></div>
+
+      <!-- Real-World Videos -->
+      <h3 class="title is-4" style="text-align:center; margin-bottom: 2.5rem; margin-top: 1rem;">Real-World Deployments</h3>
+      <div class="columns is-multiline" style="max-width: 85%; margin: 0 auto;">
+        <div class="column is-4">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/real/walkway2x.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-4">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/real/hallway-obstacle.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-4">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/real/vending.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-4">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/real/ramp.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-4">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/real/office-openroom.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+        <div class="column is-4">
+          <figure style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,0.12);">
+            <video autoplay loop muted playsinline controls style="width:100%; max-width:100%; display:block; height:auto;">
+              <source src="img/real/office-sofa.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <div style="height:1em;"></div>
+    </div>
+  </section>
+<!-- 
+  BibTeX Section
+  <section class="section" id="BibTeX" style="padding-top:2rem;">
+    <div class="container is-max-desktop content" style="max-width: 95%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:center; font-size: 2.3em; margin-bottom: 2.5rem;">BibTeX</h2>
+      <pre style="font-size: 1.05em; line-height: 1.8;">
+        @article{chen2025era,
+          title={ERA: Transforming VLMs into Embodied Agents via Embodied Prior Learning and Online Reinforcement Learning},
+          author={Chen, Hanyang and Zhao, Mark and Yang, Rui and Ma, Qinwei and Yang, Ke and Yao, Jiarui and Wang, Kangrui and Bai, Hao and Wang, Zhenhailong and Pan, Rui and Zhang, Mengchao and Barreiros, Jose and Onol, Aykut and Zhai, ChengXiang and Ji, Heng and Li, Manling and Zhang, Huan and Zhang, Tong},
+          year={2025}
+        }
+      </pre>
+    </div>
+  </section> -->
+
+</body>
+</html>
