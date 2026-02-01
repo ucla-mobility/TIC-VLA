@@ -1,4 +1,4 @@
- # <img src="website/img/logo.png" width="35" height="35" style="vertical-align: bottom; margin-right: 10px;"> TIC-VLA
+ # <img src="docs/img/logo.png" width="35" height="35" style="vertical-align: bottom; margin-right: 10px;"> TIC-VLA
 
 [![website](https://img.shields.io/badge/Website-Explore%20Now-blueviolet?style=flat&logo=google-chrome)](https://tic-vla.github.io/)
 [![paper](https://img.shields.io/badge/arXiv-Paper-red.svg)]()
@@ -15,7 +15,7 @@
 University of California, Los Angeles (UCLA)  
 <sup>†</sup> Equal contribution
 
-![overview](website/img/framework.png)
+![overview](docs/img/framework.png)
 
 ---
 
@@ -48,12 +48,4 @@ We introduce **DynaNav**, a language-conditioned navigation benchmark designed t
 - Varying **crowd density**, **navigation distance**, and **scene layout**
 - Explicit control of **semantic inference latency (1–5s)**
 
-![benchmark](website/img/benchmark.png). and both code for tic vla adn dydnanav and dataset
-Add an end sentence     <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
-      <p style="text-align:justify; color:rgb(31, 30, 30);">
-        <b>DynaNav</b> is a physics-accurate, photo-realistic benchmark for language-guided robot navigation in dynamic, human-centric environments.
-        It features <b>85 episodes</b> across <b>Hospital, Office, Warehouse, and Outdoor</b> scenes, with controlled variation in
-        <b>crowd density</b>, <b>navigation distance</b>, and <b>robot platform</b> (Nova Carter or Spot).
-        Built in <b>Isaac Sim</b> with realistic human motion and physics-based control, DynaNav evaluates robustness under dense human-robot interactions under physical constraints. 
-        Each episode specifies a standardized start pose, goal region, and natural-language instruction.
-      </p>      
+![benchmark](docs/img/benchmark.png)
