@@ -23,8 +23,7 @@ University of California, Los Angeles (UCLA)
 
 Stay tuned for new updates!
 
-TIC-VLA introduces a **latency-aware Think-in-Control (TiC) architecture** for vision-language-action (VLA) navigation in **dynamic, human-centric environments**.  
-Unlike prior VLA systems that assume synchronous reasoning and control, TIC-VLA explicitly models and trains for **semantic reasoning delay**, enabling robust and safe navigation under realistic inference latency.
+TIC-VLA introduces a **latency-aware Think-in-Control (TIC) architecture** for vision-language-action (VLA) model for robot navigation in **dynamic, human-centric environments**.  
 
 - 🧠 **Think-in-Control Architecture**  
   Decouples slow vision-language reasoning from fast reactive control through an explicit **delayed semantic–control interface**.
@@ -36,16 +35,15 @@ Unlike prior VLA systems that assume synchronous reasoning and control, TIC-VLA 
   Combines vision-language reasoning distillation, latency-induced imitation learning, and online reinforcement learning.
 
 - 🚶 **Dynamic, Human-Centric Navigation**  
-  Evaluated in physics-accurate, photo-realistic environments with dense pedestrian interactions and long-horizon instructions.
+  Evaluated in physics-accurate, photo-realistic environments with human-robot interactions and long-horizon instructions.
 
 ---
 
 ## Benchmark: DynaNav
 
-We introduce **DynaNav**, a language-conditioned navigation benchmark designed to stress-test VLA systems under realistic delay.
+We introduce **DynaNav**, a language-conditioned navigation benchmark designed to test VLA systems under realistic scenarios.
 
 - 85 task configurations across **Hospital**, **Office**, **Warehouse**, and **Outdoor** scenes
 - Varying **crowd density**, **navigation distance**, and **scene layout**
-- Explicit control of **semantic inference latency (1–5s)**
 
 ![benchmark](docs/img/benchmark.png)
